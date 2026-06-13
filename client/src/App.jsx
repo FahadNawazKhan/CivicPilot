@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Search, 
-  AlertTriangle, 
-  RefreshCw, 
-  ArrowLeft, 
+import {
+  Search,
+  AlertTriangle,
+  RefreshCw,
+  ArrowLeft,
   Trash2,
   Compass,
   Clock,
@@ -43,7 +43,7 @@ function App() {
   const [isSearching, setIsSearching] = useState(false);
   const [activeTab, setActiveTab] = useState('roadmap');
   const [mobileDashboardView, setMobileDashboardView] = useState('roadmap');
-  
+
   // Progress states
   const [completedSteps, setCompletedSteps] = useState(() => {
     try {
@@ -108,7 +108,7 @@ function App() {
         if (meRes.ok) {
           const meData = await meRes.json();
           setCurrentUser(meData.user);
-          
+
           // User is authenticated, fetch progress from DB
           const progressRes = await fetch('/api/progress');
           if (progressRes.ok) {
@@ -140,7 +140,7 @@ function App() {
       try {
         const res = await fetch('/api/progress', {
           method: 'POST',
-          headers: { 
+          headers: {
             'Content-Type': 'application/json',
             'X-CSRF-Token': csrfToken
           },
@@ -173,25 +173,25 @@ function App() {
       const getRes = await fetch('/api/progress');
       if (getRes.ok) {
         const serverProgress = await getRes.json();
-        
+
         // 2. Merge server-side progress with any local guest progress
-        const mergedCompletedSteps = { 
-          ...(serverProgress.completedSteps || {}), 
-          ...completedSteps 
+        const mergedCompletedSteps = {
+          ...(serverProgress.completedSteps || {}),
+          ...completedSteps
         };
-        const mergedVerifiedDocs = { 
-          ...(serverProgress.verifiedDocs || {}), 
-          ...verifiedDocs 
+        const mergedVerifiedDocs = {
+          ...(serverProgress.verifiedDocs || {}),
+          ...verifiedDocs
         };
         const mergedActiveJourneys = Array.from(new Set([
-          ...(serverProgress.activeJourneys || []), 
+          ...(serverProgress.activeJourneys || []),
           ...activeJourneys
         ]));
 
         // 3. Save the merged state back to the database
         const postRes = await fetch('/api/progress', {
           method: 'POST',
-          headers: { 
+          headers: {
             'Content-Type': 'application/json',
             'X-CSRF-Token': activeCsrfToken
           },
@@ -228,7 +228,7 @@ function App() {
 
   const handleLogout = async () => {
     try {
-      await fetch('/api/logout', { 
+      await fetch('/api/logout', {
         method: 'POST',
         headers: {
           'X-CSRF-Token': csrfToken
@@ -302,11 +302,11 @@ function App() {
     e.stopPropagation();
     const updated = activeJourneys.filter(id => id !== processId);
     setActiveJourneys(updated);
-    
+
     // Clear progress for that specific journey
     if (processesList.find(p => p.id === processId)) {
       const targetProc = processesList.find(p => p.id === processId);
-      
+
       // Clean steps
       const updatedSteps = { ...completedSteps };
       if (targetProc.steps) {
@@ -334,14 +334,14 @@ function App() {
     try {
       const res = await fetch('/api/discover', {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'X-CSRF-Token': csrfToken
         },
         body: JSON.stringify({ query })
       });
       const data = await res.json();
-      
+
       if (data.found && data.process) {
         handleSelectProcess(data.process.id);
         handleStartJourney(data.process.id);
@@ -375,11 +375,11 @@ function App() {
     const totalSteps = proc.steps ? proc.steps.length : 0;
     const totalDocs = proc.documents ? proc.documents.length : 0;
     const totalItems = totalSteps + totalDocs + 1; // steps + docs + eligibility
-    
+
     const doneSteps = proc.steps ? proc.steps.filter(s => completedSteps[s.id]).length : 0;
     const doneDocs = proc.documents ? proc.documents.filter(d => verifiedDocs[d.name]).length : 0;
     const doneEligible = isEligible ? 1 : 0;
-    
+
     const completedItems = doneSteps + doneDocs + doneEligible;
     return totalItems > 0 ? Math.round((completedItems / totalItems) * 100) : 0;
   };
@@ -400,7 +400,7 @@ function App() {
       const updatedDocs = { ...verifiedDocs };
       selectedProcess.documents.forEach(d => delete updatedDocs[d.name]);
       setVerifiedDocs(updatedDocs);
-      
+
       setIsEligible(false);
     }
   };
@@ -421,7 +421,7 @@ function App() {
     { icon: Percent, title: "Taxes Registry", query: "gst" }
   ];
 
-  const popularProcesses = processesList.filter(p => 
+  const popularProcesses = processesList.filter(p =>
     ["passport", "driving_license", "restaurant", "medical_store"].includes(p.id)
   );
 
@@ -437,7 +437,7 @@ function App() {
           </div>
 
           <div className="flex items-center gap-2.5 cursor-pointer shrink-0" onClick={() => setSelectedProcess(null)}>
-            <motion.div 
+            <motion.div
               className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-parchment/90 flex items-center justify-center text-brass border border-ink/15 shadow-inner"
               whileHover={{ rotate: 360 }}
               transition={{ type: 'spring', stiffness: 200, damping: 12 }}
@@ -459,8 +459,8 @@ function App() {
           </div>
 
           {/* Repeating Ruler-style Ticks in the middle */}
-          <div 
-            className="hidden md:block flex-1 h-3 mx-4 lg:mx-8 opacity-30 border-b border-brass/40" 
+          <div
+            className="hidden md:block flex-1 h-3 mx-4 lg:mx-8 opacity-30 border-b border-brass/40"
             style={{ backgroundImage: 'repeating-linear-gradient(90deg, #C19D53 0px, #C19D53 1px, transparent 1px, transparent 8px)' }}
           />
 
@@ -479,7 +479,7 @@ function App() {
             </AnimatePresence>
 
             {currentUser ? (
-              <div 
+              <div
                 className="flex items-center gap-1.5 sm:gap-3 border-r border-ink/20 pr-1.5 sm:pr-4 shrink-0 max-w-[110px] sm:max-w-none relative"
                 onMouseEnter={() => setHoveredNavId('user')}
                 onMouseLeave={() => setHoveredNavId(null)}
@@ -496,7 +496,7 @@ function App() {
                 </button>
               </div>
             ) : (
-              <div 
+              <div
                 className="relative"
                 onMouseEnter={() => setHoveredNavId('signin')}
                 onMouseLeave={() => setHoveredNavId(null)}
@@ -518,25 +518,25 @@ function App() {
                   <div className="relative w-8 h-8 flex items-center justify-center shrink-0">
                     <svg className="w-8 h-8 -rotate-90">
                       <circle cx="16" cy="16" r="13" className="stroke-white/10 fill-none" strokeWidth="2.5" />
-                      <circle 
-                        cx="16" cy="16" r="13" 
-                        className="stroke-inkGreen fill-none transition-all duration-500" 
-                        strokeWidth="2.5" 
-                        strokeDasharray="81.68" 
+                      <circle
+                        cx="16" cy="16" r="13"
+                        className="stroke-inkGreen fill-none transition-all duration-500"
+                        strokeWidth="2.5"
+                        strokeDasharray="81.68"
                         strokeDashoffset={81.68 - (81.68 * progressPct) / 100}
-                        strokeLinecap="round" 
+                        strokeLinecap="round"
                       />
                     </svg>
                     <span className="absolute text-[8px] font-mono font-bold text-parchment">{progressPct}%</span>
                   </div>
                 </div>
-                
-                <div 
+
+                <div
                   className="relative"
                   onMouseEnter={() => setHoveredNavId('download')}
                   onMouseLeave={() => setHoveredNavId(null)}
                 >
-                  <button 
+                  <button
                     onClick={() => generateActionPlanPDF(selectedProcess, completedSteps, isEligible)}
                     className="px-2 py-1 sm:px-2.5 sm:py-1 rounded bg-[#C19D53] hover:bg-[#D7C191] text-black transition-all text-[9px] sm:text-[10px] uppercase font-mono font-bold flex items-center gap-1 shrink-0 hover:scale-[1.03] active:scale-[0.97]"
                   >
@@ -546,12 +546,12 @@ function App() {
                   </button>
                 </div>
 
-                <div 
+                <div
                   className="relative"
                   onMouseEnter={() => setHoveredNavId('close')}
                   onMouseLeave={() => setHoveredNavId(null)}
                 >
-                  <button 
+                  <button
                     onClick={() => {
                       setSelectedProcess(null);
                       setSelectedStepId(null);
@@ -565,7 +565,7 @@ function App() {
             ) : (
               <div className="flex items-center gap-1.5 sm:gap-4 shrink-0 flex-nowrap">
                 {activeJourneys.length > 0 && (
-                  <div 
+                  <div
                     className="relative"
                     onMouseEnter={() => setHoveredNavId('active-journeys')}
                     onMouseLeave={() => setHoveredNavId(null)}
@@ -576,17 +576,17 @@ function App() {
                     </span>
                   </div>
                 )}
-                
-                <div 
+
+                <div
                   className="relative"
                   onMouseEnter={() => setHoveredNavId('assistant')}
                   onMouseLeave={() => setHoveredNavId(null)}
                 >
                   <button 
                     onClick={() => setIsChatOpen(true)}
-                    className="px-2 py-1 sm:px-2.5 sm:py-1 rounded bg-[#C19D53] hover:bg-[#D7C191] text-black transition-all text-[9px] sm:text-[10px] uppercase font-mono font-bold flex items-center gap-1.5 shrink-0 hover:scale-[1.03] active:scale-[0.97]"
+                    className="px-2 py-1 sm:px-2.5 sm:py-1 rounded border border-[#C19D53] bg-white hover:bg-[#C19D53] text-[#C19D53] hover:text-white transition-all text-[9px] sm:text-[10px] uppercase font-mono font-bold flex items-center gap-1.5 shrink-0 hover:scale-[1.03] active:scale-[0.97]"
                   >
-                    <Compass className="w-3.5 h-3.5 text-black" />
+                    <Compass className="w-3.5 h-3.5" />
                     <span>AI<span className="hidden sm:inline"> Sahayak</span></span>
                   </button>
                 </div>
@@ -649,19 +649,19 @@ function App() {
       </main>
 
       {/* Slide drawer Guidebook AI Assistant panel */}
-      <ChatAssistant 
+      <ChatAssistant
         key={selectedProcess?.id || 'default'}
         activeProcessId={selectedProcess?.id}
         activeProcessName={selectedProcess?.name}
-        selectedStep={selectedProcess ? (selectedProcess.steps.find(s => s.id === selectedStepId) 
-          || selectedProcess.steps.find(s => !completedSteps[s.id]) 
+        selectedStep={selectedProcess ? (selectedProcess.steps.find(s => s.id === selectedStepId)
+          || selectedProcess.steps.find(s => !completedSteps[s.id])
           || selectedProcess.steps[0]) : null}
         isOpen={isChatOpen}
         setIsOpen={setIsChatOpen}
         csrfToken={csrfToken}
       />
 
-      <AuthModal 
+      <AuthModal
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
         onAuthSuccess={handleAuthSuccess}
