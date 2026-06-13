@@ -280,6 +280,7 @@ const Dashboard = ({
                       </div>
                     </div>
 
+                    {/* 
                     <div className="pt-2 border-t border-dashed border-ink/15">
                       <button
                         onClick={() => setIsChatOpen(true)}
@@ -289,6 +290,7 @@ const Dashboard = ({
                         <span>Ask AI Sahayak for Step Guidance</span>
                       </button>
                     </div>
+                    */}
                   </div>
                 );
               })()

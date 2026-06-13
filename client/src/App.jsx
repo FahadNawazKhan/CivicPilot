@@ -30,7 +30,7 @@ import {
 
 import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
-import ChatAssistant from './components/ChatAssistant';
+// import ChatAssistant from './components/ChatAssistant';
 import AuthModal from './components/AuthModal';
 import { generateActionPlanPDF } from './utils/pdfGenerator';
 
@@ -577,6 +577,7 @@ function App() {
                   </div>
                 )}
 
+                {/* 
                 <div
                   className="relative"
                   onMouseEnter={() => setHoveredNavId('assistant')}
@@ -590,6 +591,7 @@ function App() {
                     <span>AI<span className="hidden sm:inline"> Sahayak</span></span>
                   </button>
                 </div>
+                */}
               </div>
             )}
           </nav>
@@ -649,6 +651,7 @@ function App() {
       </main>
 
       {/* Slide drawer Guidebook AI Assistant panel */}
+      {/* 
       <ChatAssistant
         key={selectedProcess?.id || 'default'}
         activeProcessId={selectedProcess?.id}
@@ -660,6 +663,7 @@ function App() {
         setIsOpen={setIsChatOpen}
         csrfToken={csrfToken}
       />
+      */}
 
       <AuthModal
         isOpen={isAuthModalOpen}
