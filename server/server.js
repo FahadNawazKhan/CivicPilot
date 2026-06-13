@@ -3,9 +3,9 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import config from './config/environment.js';
-// import securityHeaders from './middlewares/securityHeaders.js';
-// import errorHandler from './middlewares/errorHandler.js';
-// import apiRoutes from './routes/index.js';
+import securityHeaders from './middlewares/securityHeaders.js';
+import errorHandler from './middlewares/errorHandler.js';
+import apiRoutes from './routes/index.js';
 
 mongoose.connect(config.MONGODB_URI)
   .then(() => console.log('Successfully connected to MongoDB.'))
@@ -36,11 +36,11 @@ app.use(cookieParser());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// app.use(securityHeaders);
+app.use(securityHeaders);
 
-// app.use('/api', apiRoutes);
+app.use('/api', apiRoutes);
 
-// app.use(errorHandler);
+app.use(errorHandler);
 
 app.listen(PORT, HOST, () => {
   console.log(`CivicPilot Backend listening securely on http://${HOST}:${PORT}`);
