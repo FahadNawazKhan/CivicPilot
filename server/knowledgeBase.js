@@ -287,6 +287,33 @@ const knowledgeBase = {
       { "q": "When should I apply for this license?", "a": "You must apply within 30 days of commencing commercial operations at your physical premises." },
       { "q": "What rules does this license govern?", "a": "It regulates working hours, weekly holidays, payment of wages, maternity leaves, and health/safety conditions for employees." }
     ]
+  },
+  "aadhaar": {
+    "id": "aadhaar",
+    "name": "Aadhaar Card (UIDAI)",
+    "description": "Apply for a fresh Aadhaar Card or update your existing biometric/demographic details under UIDAI.",
+    "department": "Unique Identification Authority of India (UIDAI)",
+    "timeline": "10-15 Days",
+    "estimatedCost": "Free (Fresh), ₹50 - ₹100 (Updates)",
+    "eligibility": [
+      { "id": "residence", "question": "Have you resided in India for 182 days or more in the last 12 months?", "expected": true, "errorMsg": "Only Indian residents can apply for Aadhaar." }
+    ],
+    "documents": [
+      { "name": "Proof of Identity (POI)", "description": "PAN Card, Passport, Voter ID, or Driving License" },
+      { "name": "Proof of Address (POA)", "description": "Electricity Bill, Water Bill, Rent Agreement, or Bank Statement" },
+      { "name": "Proof of Date of Birth (PDB)", "description": "Birth Certificate, Passport, or Matriculation Certificate" }
+    ],
+    "steps": [
+      { "id": "step1", "title": "Online Appointment Booking", "desc": "Book an enrollment appointment online on the myAadhaar portal to skip queues.", "duration": "1 Day", "cost": "Free", "link": "https://myaadhaar.uidai.gov.in" },
+      { "id": "step2", "title": "Visit Enrollment Center", "desc": "Visit the nearest authorized Aadhaar Seva Kendra or bank/post office enrollment branch.", "duration": "1 Day", "cost": "Free", "link": "Local UIDAI Center" },
+      { "id": "step3", "title": "Biometric & Document Submission", "desc": "Submit physical copies of identity/address proofs, capture photo, fingerprints, and iris scans.", "duration": "1 Day", "cost": "Free (Fresh) / ₹50-100 (Update)", "link": "Local UIDAI Center" },
+      { "id": "step4", "title": "Receive EID slip", "desc": "Collect the enrollment acknowledgement slip containing the 14-digit Enrollment ID (EID).", "duration": "1 Day", "cost": "Free", "link": "Local UIDAI Center" },
+      { "id": "step5", "title": "Aadhaar Generation & Download", "desc": "UIDAI verifies data. Once generated, download e-Aadhaar online or wait for physical PVC card delivery by post.", "duration": "7-15 Days", "cost": "Free", "link": "https://myaadhaar.uidai.gov.in" }
+    ],
+    "faqs": [
+      { "q": "Can I apply for Aadhaar completely online?", "a": "No. You can book an appointment online, but fresh enrollment requires visiting a center for biometric capture." },
+      { "q": "What is the fee for new Aadhaar card?", "a": "Fresh enrollment is completely free. Demographic updates cost ₹50, and biometric updates cost ₹100." }
+    ]
   }
 };
 

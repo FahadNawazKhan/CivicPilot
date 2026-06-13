@@ -22,7 +22,7 @@ async function discoverProcess(query) {
 Analyze this user query: "${query}"
 
 Match it to exactly one of these process IDs:
-[passport, driving_license, gst_registration, business_registration, medical_store, restaurant, import_export_license, trade_license, fssai, shop_establishment]
+[passport, driving_license, gst_registration, business_registration, medical_store, restaurant, import_export_license, trade_license, fssai, shop_establishment, aadhaar]
 
 Return ONLY the lowercase process ID (e.g. "restaurant" or "passport").
 If it does not match any of these processes, return "none".
@@ -49,7 +49,8 @@ Do not include any punctuation, formatting, or extra text.`;
     import_export_license: ["import", "export", "iec", "dgft", "foreign trade", "customs code"],
     trade_license: ["trade license", "municipal license", "shop license", "trading"],
     fssai: ["fssai", "food license", "food safety", "foscos", "kitchen hygiene"],
-    shop_establishment: ["shop license", "establishment", "gumasta", "labor registration", "office registration"]
+    shop_establishment: ["shop license", "establishment", "gumasta", "labor registration", "office registration"],
+    aadhaar: ["aadhaar", "uidai", "aadhar", "identity card", "unique id"]
   };
 
   for (const [id, keywords] of Object.entries(matches)) {
