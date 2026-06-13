@@ -1,6 +1,6 @@
 import {Router} from 'express';
-// import { handleVerifyDocument } from '../controllers/documentController.js';
-// import { upload } from '../middlewares/uploadHandler.js';
+import { handleVerifyDocument } from '../controllers/documentController.js';
+import { upload } from '../middlewares/uploadHandler.js';
 
 const router = Router();
 

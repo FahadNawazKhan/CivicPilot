@@ -12,7 +12,6 @@ export const getProgress = async (req, res) => {
       return res.status(401).json({ error: 'User is not authenticated.' });
     }
 
-    // Validate userId to prevent malicious injection
     if (!/^[a-zA-Z0-9\-_]{2,100}$/.test(userId.toString())) {
       return res.status(400).json({ error: 'Invalid user ID format.' });
     }
