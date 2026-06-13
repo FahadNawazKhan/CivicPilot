@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+
+//progress model
 const progressSchema = new mongoose.Schema({
   userId: {
     type: String,
