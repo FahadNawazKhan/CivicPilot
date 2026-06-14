@@ -28,6 +28,7 @@ const LandingPage = ({
   handleCancelJourney,
   handleStartJourney
 }) => {
+
   return (
     <motion.div
       key="landing"
@@ -226,7 +227,9 @@ const LandingPage = ({
             ))}
           </div>
         </div>
+
       </div>
+
     </motion.div>
   );
 };

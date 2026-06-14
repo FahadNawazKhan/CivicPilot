@@ -9,12 +9,14 @@ import {
   FolderClosed, 
   HelpCircle, 
   ExternalLink, 
-  Compass 
+  Compass,
+  MessageSquare
 } from 'lucide-react';
 
 import RoadmapFlow from './RoadmapFlow';
 import EligibilityChecker from './EligibilityChecker';
 import DocumentVerification from './DocumentVerification';
+import CitizenHubPanel from './CitizenHubPanel';
 
 const Dashboard = ({
   selectedProcess,
@@ -35,7 +37,10 @@ const Dashboard = ({
   handleDocVerified,
   verifiedDocs = {},
   csrfToken,
-  setIsChatOpen
+  setIsChatOpen,
+  documentVault,
+  setDocumentVault,
+  currentUser
 }) => {
   return (
     <motion.div
@@ -168,7 +173,7 @@ const Dashboard = ({
               { id: 'roadmap', label: '1. Step Details', icon: FileText },
               { id: 'eligibility', label: '2. Eligibility', icon: ClipboardList },
               { id: 'documents', label: '3. Documents', icon: FolderClosed },
-              { id: 'faqs', label: '4. FAQs', icon: HelpCircle }
+              { id: 'tips', label: '4. Citizen Forum', icon: MessageSquare }
             ].map(tab => {
               const IconComp = tab.icon;
               return (
@@ -310,23 +315,15 @@ const Dashboard = ({
               />
             )}
 
-            {activeTab === 'faqs' && (
-              <div className="space-y-4">
-                <h3 className="text-2xl font-garamond font-bold text-ink uppercase tracking-wide">Frequently Asked Questions (FAQ)</h3>
-                <div className="space-y-3 max-h-[350px] overflow-y-auto pr-1">
-                  {selectedProcess.faqs.map((faq, idx) => (
-                    <div key={idx} className="p-3 rounded-xl border border-ink/10 bg-[#FAFBFB] shadow-sm">
-                      <h4 className="font-garamond font-bold text-sm text-ink flex items-start gap-1.5 leading-snug">
-                        <span className="text-inkRed shrink-0 font-mono text-[10px] pt-0.5">Q:</span>
-                        <span>{faq.q}</span>
-                      </h4>
-                      <p className="text-xs text-ink/75 mt-1.5 pl-4 leading-relaxed font-medium">
-                        {faq.a}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+
+
+
+            {activeTab === 'tips' && (
+              <CitizenHubPanel 
+                processId={selectedProcess.id}
+                csrfToken={csrfToken}
+                currentUser={currentUser}
+              />
             )}
           </div>
         </div>

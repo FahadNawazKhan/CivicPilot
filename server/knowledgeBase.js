@@ -23,10 +23,6 @@ const knowledgeBase = {
       { "id": "step4", "title": "Physical Verification (PSK)", "desc": "Visit the PSK for document verification, biometrics (fingerprints), and photograph capture.", "duration": "1 Day", "cost": "Free", "link": "Local PSK Center" },
       { "id": "step5", "title": "Police Verification", "desc": "A police officer will visit your registered address or request you to visit the local police station to verify identity and record.", "duration": "7-14 Days", "cost": "Free (No tips allowed)", "link": "Local Police Station" },
       { "id": "step6", "title": "Passport Dispatch", "desc": "Passport is printed and dispatched via Speed Post to your registered address.", "duration": "3-7 Days", "cost": "Free", "link": "India Post Tracking" }
-    ],
-    "faqs": [
-      { "q": "Can I apply for a passport under Tatkaal if I need it urgently?", "a": "Yes, Tatkaal application is processed faster and dispatched within 1-3 days after successful verification. An additional fee of ₹2,000 applies." },
-      { "q": "What happens if police verification is adverse?", "a": "You will receive a show-cause notice and must visit the Regional Passport Office (RPO) with clarifications." }
     ]
   },
   "driving_license": {
@@ -52,10 +48,6 @@ const knowledgeBase = {
       { "id": "step3", "title": "Book Slot for Driving Test", "desc": "Apply online for a Permanent Driving License and book a slot for the physical driving test at the RTO.", "duration": "2-5 Days", "cost": "₹300 - ₹500", "link": "https://sarathi.parivahan.gov.in" },
       { "id": "step4", "title": "Physical Driving Test", "desc": "Report to the RTO track with your vehicle and L-board. Take the driving test in front of the MVI inspector.", "duration": "1 Day", "cost": "Free", "link": "RTO Office" },
       { "id": "step5", "title": "License Dispatch", "desc": "Upon passing the test, the smart card license is printed and mailed to your home.", "duration": "7-15 Days", "cost": "Free", "link": "Speed Post" }
-    ],
-    "faqs": [
-      { "q": "What happens if I fail the driving test?", "a": "You can re-apply for a retest after 7 days by paying a nominal re-test fee." },
-      { "q": "How long is the Learner's License valid?", "a": "A Learner's License is valid for 6 months. You must pass the permanent test before it expires." }
     ]
   },
   "gst_registration": {
@@ -81,10 +73,6 @@ const knowledgeBase = {
       { "id": "step3", "title": "Aadhaar Authentication", "desc": "Complete the Aadhaar OTP authentication link received on registered mobile number.", "duration": "1 Day", "cost": "Free", "link": "Sent via Email" },
       { "id": "step4", "title": "Officer Review", "desc": "An officer reviews the application. If correct, registration is approved. If clarification is needed, a notice (GST REG-03) is issued.", "duration": "3-5 Days", "cost": "Free", "link": "https://www.gst.gov.in" },
       { "id": "step5", "title": "Download GST Certificate", "desc": "Upon approval, download Form GST REG-06 containing your GSTIN (15-digit number) from the dashboard.", "duration": "1 Day", "cost": "Free", "link": "https://www.gst.gov.in" }
-    ],
-    "faqs": [
-      { "q": "What is the threshold limit for mandatory GST registration?", "a": "For service providers, it is ₹20 lakhs (₹10 lakhs in special category states). For goods suppliers, it is ₹40 lakhs (₹20 lakhs in special states)." },
-      { "q": "Is inter-state sale possible without GST?", "a": "No, any inter-state supply of goods mandates GST registration, irrespective of turnover." }
     ]
   },
   "business_registration": {
@@ -110,10 +98,6 @@ const knowledgeBase = {
       { "id": "step3", "title": "SPICe+ Form Submission", "desc": "Fill Spice+ Form (INC-32) which includes Application for DIN (Director Identification Number), Incorporation (Form INC-32), MOA (INC-33), AOA (INC-34), PAN, and TAN applications.", "duration": "3-5 Days", "cost": "₹3,000 - ₹6,000 (Varies by Capital)", "link": "https://www.mca.gov.in" },
       { "id": "step4", "title": "Certificate of Incorporation", "desc": "Once approved, the Registrar of Companies (ROC) issues a Certificate of Incorporation (COI) containing the Corporate Identity Number (CIN) along with PAN and TAN.", "duration": "2-3 Days", "cost": "Free", "link": "https://www.mca.gov.in" },
       { "id": "step5", "title": "Open Bank Account", "desc": "Open a corporate bank account using the COI, PAN, and TAN of the company.", "duration": "2-3 Days", "cost": "Free (Requires initial deposit)", "link": "Any Commercial Bank" }
-    ],
-    "faqs": [
-      { "q": "What is the difference between DIN and DSC?", "a": "DSC is a digital signature used to sign online forms, whereas DIN is a unique identification number issued to directors of a company." },
-      { "q": "What is Authorised vs Paid-up Capital?", "a": "Authorised capital is the maximum limit of shares a company can issue. Paid-up capital is the money actually deposited by shareholders." }
     ]
   },
   "medical_store": {
@@ -140,10 +124,6 @@ const knowledgeBase = {
       { "id": "step3", "title": "Apply for Drug License", "desc": "Submit Form 19 for Retail Drug License (Form 20/21) on the State Drug Control online portal.", "duration": "2 Days", "cost": "₹3,000", "link": "State Drug Control Portal" },
       { "id": "step4", "title": "Physical Inspection", "desc": "A Drug Inspector (DI) will inspect the shop to verify square footage, layout, temperature controls, and registered pharmacist credentials.", "duration": "7-14 Days", "cost": "Free", "link": "In-person visit" },
       { "id": "step5", "title": "Grant of Drug License", "desc": "If the inspection is satisfactory, the Drug License (Form 20 & 21) is issued digitally.", "duration": "5 Days", "cost": "Free", "link": "Online download" }
-    ],
-    "faqs": [
-      { "q": "Can I open a medical store if I am not a pharmacist?", "a": "Yes. You can be the business owner, but you must hire a registered pharmacist and register their license as the competent staff in charge of dispensing." },
-      { "q": "What is the difference between Form 20 and Form 21?", "a": "Form 20 is for selling general drugs (allopathic/etc.), and Form 21 is for specified schedule C and C1 drugs (biological, special drugs)." }
     ]
   },
   "restaurant": {
@@ -169,10 +149,6 @@ const knowledgeBase = {
       { "id": "step3", "title": "Fire & Environmental NOC", "desc": "Get a certificate from the Fire Department (if applicable) and Pollution Control Board (green/orange category).", "duration": "10 Days", "cost": "₹2,000 - ₹5,000", "link": "State Single Window System" },
       { "id": "step4", "title": "GST Registration", "desc": "Get GST registration. Note that restaurant services attract 5% GST (without Input Tax Credit).", "duration": "3-7 Days", "cost": "Free", "link": "https://www.gst.gov.in" },
       { "id": "step5", "title": "Launch Restaurant", "desc": "Obtain all licenses, display FSSAI license prominently, and start operations.", "duration": "1 Day", "cost": "Free", "link": "" }
-    ],
-    "faqs": [
-      { "q": "What is the difference between FSSAI registration and license?", "a": "Registration is for small food operators (turnover < ₹12 lakhs/year, fee ₹100). State license is for restaurants with turnover between ₹12 lakhs to ₹20 crores (fee ₹2,000-₹5,000)." },
-      { "q": "Can I serve alcohol with these licenses?", "a": "No, serving alcohol requires a separate Excise Liquor License, which is expensive and has strict location rules." }
     ]
   },
   "import_export_license": {
@@ -197,10 +173,6 @@ const knowledgeBase = {
       { "id": "step3", "title": "Upload Documents & Sign", "desc": "Upload digital copies of PAN, address proof, and bank document. Digitally sign the application using DSC or Aadhaar OTP.", "duration": "1 Day", "cost": "Free", "link": "https://www.dgft.gov.in" },
       { "id": "step4", "title": "Payment", "desc": "Pay the application processing fee of ₹500 via BharatKosh on the DGFT payment gateway.", "duration": "1 Day", "cost": "₹500", "link": "https://www.dgft.gov.in" },
       { "id": "step5", "title": "IEC Issuance", "desc": "The IEC certificate is generated instantly upon successful payment. Download and print the PDF certificate.", "duration": "1 Day", "cost": "Free", "link": "https://www.dgft.gov.in" }
-    ],
-    "faqs": [
-      { "q": "Is IEC mandatory for service exports?", "a": "No, it is not mandatory for services unless you are claiming export benefits under schemes like SEIS." },
-      { "q": "Does IEC require renewal?", "a": "IEC is valid for life, but it must be updated on the DGFT portal annually (April to June) to keep it active. This update is free." }
     ]
   },
   "trade_license": {
@@ -226,10 +198,6 @@ const knowledgeBase = {
       { "id": "step3", "title": "Physical Inspection", "desc": "A ward officer or sanitary inspector visits the premises to check dimensions, zoning compatibility, and health hazards.", "duration": "5-10 Days", "cost": "Free", "link": "On-site Visit" },
       { "id": "step4", "title": "Fee Payment", "desc": "If approved, pay the calculated trade license fee online or via draft.", "duration": "1-2 Days", "cost": "₹2,000 - ₹10,000", "link": "Local Municipal Portal" },
       { "id": "step5", "title": "License Issuance", "desc": "The trade license certificate is issued, usually valid for 1 financial year, renewing every April.", "duration": "2-3 Days", "cost": "Free", "link": "Municipal Portal" }
-    ],
-    "faqs": [
-      { "q": "What happens if I run a business without a Trade License?", "a": "You can face heavy fines, and the municipal body has powers to seal the business premises." },
-      { "q": "Is the trade license transferrable?", "a": "No, a trade license is issued to a specific person for a specific location and trade type." }
     ]
   },
   "fssai": {
@@ -254,10 +222,6 @@ const knowledgeBase = {
       { "id": "step3", "title": "Pay Processing Fee", "desc": "Pay the FSSAI license fee online (varies by duration: 1 to 5 years).", "duration": "1 Day", "cost": "₹100 - ₹7,500", "link": "https://foscos.fssai.gov.in" },
       { "id": "step4", "title": "Inspection (If License)", "desc": "A Food Safety Officer (FSO) may conduct a surprise inspection of the kitchen/unit to verify cleanliness standards.", "duration": "7-15 Days", "cost": "Free", "link": "In-person visit" },
       { "id": "step5", "title": "Download FSSAI Certificate", "desc": "Upon approval, the 14-digit FSSAI license number and digital certificate are emailed and can be downloaded from the dashboard.", "duration": "1-3 Days", "cost": "Free", "link": "https://foscos.fssai.gov.in" }
-    ],
-    "faqs": [
-      { "q": "Do I need FSSAI for selling packed foods?", "a": "Yes, anyone manufacturing, distributing, wholesaling, retailing, or importing food requires FSSAI registration or a license." },
-      { "q": "What is the penalty for operating without FSSAI?", "a": "Running a food business without registration or license can result in imprisonment up to six months and a fine up to ₹5 Lakhs." }
     ]
   },
   "shop_establishment": {
@@ -282,10 +246,6 @@ const knowledgeBase = {
       { "id": "step3", "title": "Upload Documents", "desc": "Upload shop photos, rental agreement, PAN, and employee lists.", "duration": "1 Day", "cost": "Free", "link": "State Labor Portal" },
       { "id": "step4", "title": "Fee Payment", "desc": "Pay the registration fee based on the number of workers. Most states have auto-approved systems for small setups.", "duration": "1 Day", "cost": "₹500 - ₹2,000", "link": "State Labor Portal" },
       { "id": "step5", "title": "Download License", "desc": "Download the digital registration certificate containing your Shop License registration number.", "duration": "1-2 Days", "cost": "Free", "link": "State Labor Portal" }
-    ],
-    "faqs": [
-      { "q": "When should I apply for this license?", "a": "You must apply within 30 days of commencing commercial operations at your physical premises." },
-      { "q": "What rules does this license govern?", "a": "It regulates working hours, weekly holidays, payment of wages, maternity leaves, and health/safety conditions for employees." }
     ]
   },
   "aadhaar": {
@@ -309,10 +269,6 @@ const knowledgeBase = {
       { "id": "step3", "title": "Biometric & Document Submission", "desc": "Submit physical copies of identity/address proofs, capture photo, fingerprints, and iris scans.", "duration": "1 Day", "cost": "Free (Fresh) / ₹50-100 (Update)", "link": "Local UIDAI Center" },
       { "id": "step4", "title": "Receive EID slip", "desc": "Collect the enrollment acknowledgement slip containing the 14-digit Enrollment ID (EID).", "duration": "1 Day", "cost": "Free", "link": "Local UIDAI Center" },
       { "id": "step5", "title": "Aadhaar Generation & Download", "desc": "UIDAI verifies data. Once generated, download e-Aadhaar online or wait for physical PVC card delivery by post.", "duration": "7-15 Days", "cost": "Free", "link": "https://myaadhaar.uidai.gov.in" }
-    ],
-    "faqs": [
-      { "q": "Can I apply for Aadhaar completely online?", "a": "No. You can book an appointment online, but fresh enrollment requires visiting a center for biometric capture." },
-      { "q": "What is the fee for new Aadhaar card?", "a": "Fresh enrollment is completely free. Demographic updates cost ₹50, and biometric updates cost ₹100." }
     ]
   }
 };
