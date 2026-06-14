@@ -27,6 +27,10 @@ const progressSchema = new mongoose.Schema({
   activeJourneys: {
     type: [String],
     default: []
+  },
+  documentVault: {
+    type: mongoose.Schema.Types.Mixed,
+    default: []
   }
 }, {
   timestamps: true

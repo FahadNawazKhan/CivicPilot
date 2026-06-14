@@ -33,3 +33,19 @@ export const authenticateUser = (req, res, next) => {
     res.status(401).json({ error: 'Invalid or expired session token.' });
   }
 };
+
+export const optionalAuthenticate = (req, res, next) => {
+  const token = req.cookies['__Host-token'] || req.cookies['token'];
+  if (!token) {
+    return next();
+  }
+  try {
+    const verified = jwt.verify(token, getJwtSecret(), {
+      algorithms: ['HS256']
+    });
+    req.user = verified;
+  } catch (error) {
+    // Silently continue for guests on verification failure
+  }
+  next();
+};

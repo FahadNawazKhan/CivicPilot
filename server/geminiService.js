@@ -161,21 +161,6 @@ CivicPilot Response:`;
     return `Here are the simple steps to get your **${processContext.name}**:\n${processContext.steps.map((s, idx) => `${idx + 1}. **${s.title}** (Takes ${s.duration}): ${s.desc}`).join('\n')}`;
   }
 
-  const matchedFaq = processContext.faqs.find(faq => {
-    const faqQ = faq.q.toLowerCase();
-    if (lowerQ.includes(faqQ)) return true;
-
-    const faqWords = faqQ.split(/\s+/).filter(w => w.length > 4);
-    if (faqWords.length === 0) return false;
-
-    const matchingWords = faqWords.filter(word => lowerQ.includes(word));
-    return (matchingWords.length / faqWords.length) >= 0.6;
-  });
-
-  if (matchedFaq) {
-    return matchedFaq.a;
-  }
-
   return `I am here to help you get your **${processContext.name}**. You can ask me how much it costs, what documents you need, or the steps to apply. Tell me what you want to know!`;
 }
 

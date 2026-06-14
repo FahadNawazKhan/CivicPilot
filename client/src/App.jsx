@@ -25,13 +25,15 @@ import {
   Lightbulb,
   Lock,
   ExternalLink,
-  Loader2
+  Loader2,
+  X
 } from 'lucide-react';
 
 import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
 import ChatAssistant from './components/ChatAssistant';
 import AuthModal from './components/AuthModal';
+import DocumentVault from './components/DocumentVault';
 import { generateActionPlanPDF } from './utils/pdfGenerator';
 
 function App() {
@@ -70,8 +72,66 @@ function App() {
       return [];
     }
   });
+  const [documentVault, setDocumentVault] = useState(() => {
+    try {
+      const saved = localStorage.getItem('civicpilot_document_vault');
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [isVaultOpen, setIsVaultOpen] = useState(false);
   const [hoveredNavId, setHoveredNavId] = useState(null);
+
+  const seedDefaultVault = () => {
+    const today = new Date();
+    const passportExpiry = new Date();
+    passportExpiry.setDate(today.getDate() + 15);
+    const licenseExpiry = new Date();
+    licenseExpiry.setDate(today.getDate() + 65);
+
+    const defaultVault = [
+      {
+        id: 'demo-1',
+        type: 'passport',
+        typeName: 'Passport',
+        holder: 'Fahad Nawaz Khan',
+        number: 'Z9874521',
+        expiry: passportExpiry.toISOString().split('T')[0],
+        isPermanent: false,
+        linkProcess: 'passport'
+      },
+      {
+        id: 'demo-2',
+        type: 'driving_license',
+        typeName: 'Driving License',
+        holder: 'Fahad Nawaz Khan',
+        number: 'DL-1420220036',
+        expiry: licenseExpiry.toISOString().split('T')[0],
+        isPermanent: false,
+        linkProcess: 'driving_license'
+      },
+      {
+        id: 'demo-3',
+        type: 'aadhaar',
+        typeName: 'Aadhaar Card',
+        holder: 'Fahad Nawaz Khan',
+        number: 'XXXX-XXXX-8824',
+        expiry: '',
+        isPermanent: true,
+        linkProcess: 'aadhaar'
+      }
+    ];
+    setDocumentVault(defaultVault);
+    localStorage.setItem('civicpilot_document_vault', JSON.stringify(defaultVault));
+  };
+
+  useEffect(() => {
+    if (documentVault !== null) {
+      localStorage.setItem('civicpilot_document_vault', JSON.stringify(documentVault));
+    }
+  }, [documentVault]);
 
 
   // Authentication & session state
@@ -117,11 +177,19 @@ function App() {
               if (progressData.completedSteps) setCompletedSteps(progressData.completedSteps);
               if (progressData.verifiedDocs) setVerifiedDocs(progressData.verifiedDocs);
               if (progressData.activeJourneys) setActiveJourneys(progressData.activeJourneys);
+              if (progressData.documentVault !== undefined) {
+                setDocumentVault(progressData.documentVault);
+              } else {
+                seedDefaultVault();
+              }
             }
             setHasLoadedUserProgress(true);
           }
         } else {
           console.log("No active session detected, running in guest mode.");
+          if (!localStorage.getItem('civicpilot_document_vault')) {
+            seedDefaultVault();
+          }
         }
       } catch (err) {
         console.warn("Could not synchronize session details, running in guest mode:", err);
@@ -147,7 +215,8 @@ function App() {
           body: JSON.stringify({
             completedSteps,
             verifiedDocs,
-            activeJourneys
+            activeJourneys,
+            documentVault: documentVault || []
           })
         });
         if (!res.ok) {
@@ -160,7 +229,7 @@ function App() {
 
     const timeoutId = setTimeout(syncProgress, 500);
     return () => clearTimeout(timeoutId);
-  }, [completedSteps, verifiedDocs, activeJourneys, currentUser, isInitialLoadDone, csrfToken, hasLoadedUserProgress]);
+  }, [completedSteps, verifiedDocs, activeJourneys, documentVault, currentUser, isInitialLoadDone, csrfToken, hasLoadedUserProgress]);
 
   const handleAuthSuccess = async (user, newCsrfToken) => {
     const activeCsrfToken = newCsrfToken || csrfToken;
@@ -187,6 +256,13 @@ function App() {
           ...(serverProgress.activeJourneys || []),
           ...activeJourneys
         ]));
+        
+        const mergedDocumentVault = [
+          ...(serverProgress.documentVault || []),
+          ...(documentVault || [])
+        ].filter((value, index, self) =>
+          self.findIndex(d => d.id === value.id) === index
+        );
 
         // 3. Save the merged state back to the database
         const postRes = await fetch('/api/progress', {
@@ -198,7 +274,8 @@ function App() {
           body: JSON.stringify({
             completedSteps: mergedCompletedSteps,
             verifiedDocs: mergedVerifiedDocs,
-            activeJourneys: mergedActiveJourneys
+            activeJourneys: mergedActiveJourneys,
+            documentVault: mergedDocumentVault
           })
         });
 
@@ -208,6 +285,7 @@ function App() {
             setCompletedSteps(progressData.completedSteps || {});
             setVerifiedDocs(progressData.verifiedDocs || {});
             setActiveJourneys(progressData.activeJourneys || []);
+            setDocumentVault(progressData.documentVault || []);
           }
           setHasLoadedUserProgress(true);
         } else {
@@ -215,6 +293,7 @@ function App() {
           setCompletedSteps(serverProgress.completedSteps || {});
           setVerifiedDocs(serverProgress.verifiedDocs || {});
           setActiveJourneys(serverProgress.activeJourneys || []);
+          setDocumentVault(serverProgress.documentVault || []);
           setHasLoadedUserProgress(true);
         }
       }
@@ -548,6 +627,20 @@ function App() {
 
                 <div
                   className="relative"
+                  onMouseEnter={() => setHoveredNavId('vault')}
+                  onMouseLeave={() => setHoveredNavId(null)}
+                >
+                  <button
+                    onClick={() => setIsVaultOpen(true)}
+                    className="px-2 py-1 sm:px-2.5 sm:py-1 rounded border border-[#C19D53] bg-white hover:bg-[#C19D53] text-[#C19D53] hover:text-white transition-all text-[9px] sm:text-[10px] uppercase font-mono font-bold flex items-center gap-1.5 shrink-0 hover:scale-[1.03] active:scale-[0.97]"
+                  >
+                    <Clock className="w-3.5 h-3.5" />
+                    <span>My Vault</span>
+                  </button>
+                </div>
+
+                <div
+                  className="relative"
                   onMouseEnter={() => setHoveredNavId('close')}
                   onMouseLeave={() => setHoveredNavId(null)}
                 >
@@ -576,6 +669,20 @@ function App() {
                     </span>
                   </div>
                 )}
+
+                <div
+                  className="relative"
+                  onMouseEnter={() => setHoveredNavId('vault')}
+                  onMouseLeave={() => setHoveredNavId(null)}
+                >
+                  <button
+                    onClick={() => setIsVaultOpen(true)}
+                    className="px-2 py-1 sm:px-2.5 sm:py-1 rounded border border-[#C19D53] bg-white hover:bg-[#C19D53] text-[#C19D53] hover:text-white transition-all text-[9px] sm:text-[10px] uppercase font-mono font-bold flex items-center gap-1.5 shrink-0 hover:scale-[1.03] active:scale-[0.97]"
+                  >
+                    <Clock className="w-3.5 h-3.5" />
+                    <span>My Vault</span>
+                  </button>
+                </div>
 
                 <div
                   className="relative"
@@ -643,6 +750,7 @@ function App() {
               verifiedDocs={verifiedDocs}
               csrfToken={csrfToken}
               setIsChatOpen={setIsChatOpen}
+              currentUser={currentUser}
             />
           )}
         </AnimatePresence>
@@ -667,6 +775,52 @@ function App() {
         onAuthSuccess={handleAuthSuccess}
         csrfToken={csrfToken}
       />
+
+      <AnimatePresence>
+        {isVaultOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/40 backdrop-blur-sm">
+            {/* Modal Background click listener */}
+            <motion.div
+              className="absolute inset-0"
+              onClick={() => setIsVaultOpen(false)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
+
+            {/* Modal Paper container */}
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 15 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 15 }}
+              transition={{ duration: 0.2 }}
+              className="relative w-full max-w-4xl max-h-[85vh] overflow-y-auto p-8 rounded-2xl border border-ink/20 shadow-2xl bg-[#FCFAF5] text-ink z-10 font-sans"
+            >
+              {/* Paper clip decorative element */}
+              <div className="paperclip-clip"><div className="paperclip-inner" /></div>
+
+              {/* Close button */}
+              <button
+                onClick={() => setIsVaultOpen(false)}
+                className="absolute top-4 right-4 p-1.5 rounded-lg border border-ink/10 text-ink/40 hover:text-inkRed hover:border-inkRed/30 transition-colors bg-parchment shadow-sm"
+              >
+                <X className="w-4 h-4" />
+              </button>
+
+              <DocumentVault
+                handleSelectProcess={(processId) => {
+                  handleSelectProcess(processId);
+                  handleStartJourney(processId);
+                  setIsVaultOpen(false);
+                }}
+                documentVault={documentVault || []}
+                setDocumentVault={setDocumentVault}
+                currentUser={currentUser}
+              />
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
