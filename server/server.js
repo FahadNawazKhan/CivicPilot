@@ -1,18 +1,11 @@
 import express from 'express';
 import cors from 'cors';
-import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import config from './config/environment.js';
+import { connectDB } from './config/db.js';
 import securityHeaders from './middlewares/securityHeaders.js';
 import errorHandler from './middlewares/errorHandler.js';
 import apiRoutes from './routes/index.js';
-
-mongoose.connect(config.MONGODB_URI)
-  .then(() => console.log('Successfully connected to MongoDB.'))
-  .catch((err) => {
-    console.error('Database connection failed. Ensuring application fails closed or logs errors correctly.');
-    console.error(err.message);
-  });
 
 const app = express();
 const PORT = config.PORT;
@@ -38,7 +31,17 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 app.use(securityHeaders);
 
-app.use('/api', apiRoutes);
+// Lazy-connect database middleware to handle serverless cold starts & cache connections
+const dbMiddleware = async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    res.status(500).json({ error: 'Database connection failed. Please ensure environment variables are configured.' });
+  }
+};
+
+app.use('/api', dbMiddleware, apiRoutes);
 
 app.use(errorHandler);
 
