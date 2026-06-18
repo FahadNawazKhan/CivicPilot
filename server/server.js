@@ -42,6 +42,10 @@ app.use('/api', apiRoutes);
 
 app.use(errorHandler);
 
-app.listen(PORT, HOST, () => {
-  console.log(`CivicPilot Backend listening securely on http://${HOST}:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+  app.listen(PORT, HOST, () => {
+    console.log(`CivicPilot Backend listening securely on http://${HOST}:${PORT}`);
+  });
+}
+
+export default app;
